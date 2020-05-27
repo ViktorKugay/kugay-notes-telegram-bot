@@ -11,4 +11,10 @@ export const env = {
   TELEGRAM_BOT_NAME: envs.get('TELEGRAM_BOT_NAME').asString(),
   TELEGRAM_PROXY_AGENT_HOST: envs.get('TELEGRAM_PROXY_AGENT_HOST').asString(),
   TELEGRAM_PROXY_AGENT_PORT: envs.get('TELEGRAM_PROXY_AGENT_PORT').asString(),
+
+  POSTGRES_HOST: envs.get('POSTGRES_HOST').asString(),
+  POSTGRES_USER: envs.get('POSTGRES_USER').asString(),
+  POSTGRES_PASSWORD: envs.get('POSTGRES_PASSWORD').asString(),
+  POSTGRES_DB: envs.get('POSTGRES_DB').asString(),
+  POSTGRES_PORT: envs.get('POSTGRES_PORT').asPortNumber(),
 };

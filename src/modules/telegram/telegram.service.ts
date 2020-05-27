@@ -9,6 +9,7 @@ const {TELEGRAM_ACCESS_TOKEN} = env;
 @Injectable()
 export class TelegramService {
   private readonly telegraf: Telegraf<TelegrafContext>;
+
   constructor() {
     this.telegraf = new Telegraf(TELEGRAM_ACCESS_TOKEN, this.buildTelegrafOptions());
   }
