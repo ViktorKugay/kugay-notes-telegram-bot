@@ -1,8 +1,10 @@
 import {Module} from '@nestjs/common';
 import {TelegramModule} from './modules/telegram/telegram.module';
-import {ConfigModule} from '@nestjs/config';
+import {UsersModule} from './modules/users/users.module';
+import {TypeOrmModule} from '@nestjs/typeorm';
+import {dbConfig} from './db';
 
 @Module({
-  imports: [ConfigModule.forRoot(), TelegramModule],
+  imports: [TypeOrmModule.forRoot(dbConfig), TelegramModule, UsersModule],
 })
 export class AppModule {}

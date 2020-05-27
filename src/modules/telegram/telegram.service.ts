@@ -1,18 +1,30 @@
-import {Injectable} from '@nestjs/common';
-import {ConfigService} from '@nestjs/config';
 import {Telegraf} from 'telegraf';
+import {env, isProd} from '../../config';
+import {Injectable} from '@nestjs/common';
 import {TelegrafContext} from 'telegraf/typings/context';
+import {buildProxySocksAgent} from './utils/buildProxySocksAgent';
+
+const {TELEGRAM_ACCESS_TOKEN} = env;
 
 @Injectable()
 export class TelegramService {
   private readonly telegraf: Telegraf<TelegrafContext>;
-  constructor(private readonly configService: ConfigService) {
-    const accessToken = this.configService.get('TELEGRAM_ACCESS_TOKEN');
-    this.telegraf = new Telegraf(accessToken);
-    this.telegraf.start(ctx => ctx.reply('Welcome'));
-    this.telegraf.help(ctx => ctx.reply('Send me a sticker'));
-    this.telegraf.on('sticker', ctx => ctx.reply('👍'));
-    this.telegraf.hears('hi', ctx => ctx.reply('Hey there'));
-    this.telegraf.launch().catch(console.log);
+  constructor() {
+    this.telegraf = new Telegraf(TELEGRAM_ACCESS_TOKEN, this.buildTelegrafOptions());
+  }
+
+  onModuleInit() {
+    this.telegraf.start(ctx => ctx.reply('Hello'));
+    this.telegraf.launch();
+  }
+
+  private buildTelegrafOptions() {
+    if (!isProd) {
+      return {
+        telegram: {
+          agent: buildProxySocksAgent(),
+        },
+      };
+    }
   }
 }
