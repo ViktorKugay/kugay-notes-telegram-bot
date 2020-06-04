@@ -1,7 +1,7 @@
 import {Injectable, OnModuleInit} from '@nestjs/common';
-import {env} from '../../config';
-import PgBoss, {JobOptions} from 'pg-boss';
 import {QueueJob, JobStartCallback} from './queue.types';
+import PgBoss, {JobOptions} from 'pg-boss';
+import {env} from '../../config';
 
 @Injectable()
 export class QueueService implements OnModuleInit {
@@ -15,19 +15,14 @@ export class QueueService implements OnModuleInit {
       database: env.POSTGRES_DB,
       port: env.POSTGRES_PORT,
       schema: 'public',
-      ssl: {rejectUnauthorized: false},
+      // ssl: {rejectUnauthorized: false},
     } as unknown) as PgBoss.ConstructorOptions);
 
     await this.boss.start();
-    this.subscribe(QueueJob.templateJobName, async () => {
-      console.log('!!!');
-    });
-
-    this.publish(QueueJob.templateJobName, {hello: 'world'});
   }
 
   public async publish(jobName: QueueJob, data: any) {
-    await this.boss.publish(jobName, data);
+    await this.boss.publish(jobName, data, {startAfter: 5});
   }
 
   public async subscribe(jobName: QueueJob, jobStartCallback: JobStartCallback) {

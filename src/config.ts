@@ -6,6 +6,19 @@ config();
 export const isProd = process.env.NODE_ENV === 'production';
 export const isTest = process.env.NODE_ENV === 'test';
 
+interface Envs {
+  TELEGRAM_ACCESS_TOKEN: string;
+  TELEGRAM_BOT_NAME: string;
+  TELEGRAM_PROXY_AGENT_HOST: string;
+  TELEGRAM_PROXY_AGENT_PORT: string;
+
+  POSTGRES_HOST: string;
+  POSTGRES_USER: string;
+  POSTGRES_PASSWORD: string;
+  POSTGRES_DB: string;
+  POSTGRES_PORT: number;
+}
+
 export const env = {
   TELEGRAM_ACCESS_TOKEN: envs.get('TELEGRAM_ACCESS_TOKEN').asString(),
   TELEGRAM_BOT_NAME: envs.get('TELEGRAM_BOT_NAME').asString(),
@@ -17,4 +30,4 @@ export const env = {
   POSTGRES_PASSWORD: envs.get('POSTGRES_PASSWORD').asString(),
   POSTGRES_DB: envs.get('POSTGRES_DB').asString(),
   POSTGRES_PORT: envs.get('POSTGRES_PORT').asPortNumber(),
-};
+} as Envs;

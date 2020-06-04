@@ -1,5 +1,5 @@
 export enum QueueJob {
-  templateJobName = 'templateJobName',
+  nofifyUserTask = 'nofifyUserTask',
 }
 
 export interface JobOptions {
