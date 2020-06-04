@@ -1,33 +1,38 @@
-import {Injectable, OnModuleInit} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {QueueJob, JobStartCallback} from './queue.types';
 import PgBoss, {JobOptions} from 'pg-boss';
-import {env} from '../../config';
+import {dbConfig} from '../../db';
 
 @Injectable()
-export class QueueService implements OnModuleInit {
+export class QueueService {
   private boss!: PgBoss;
+  private bossStart?: Promise<PgBoss>;
 
-  async onModuleInit() {
-    this.boss = new PgBoss(({
-      host: env.POSTGRES_HOST,
-      user: env.POSTGRES_USER,
-      password: env.POSTGRES_PASSWORD,
-      database: env.POSTGRES_DB,
-      port: env.POSTGRES_PORT,
+  constructor() {
+    this.boss = new PgBoss({
       schema: 'public',
-      // ssl: {rejectUnauthorized: false},
-    } as unknown) as PgBoss.ConstructorOptions);
+      host: dbConfig.host,
+      user: dbConfig.username,
+      password: dbConfig.password,
+      database: dbConfig.database,
+      port: dbConfig.port,
+      ssl: dbConfig.ssl,
+    } as PgBoss.ConstructorOptions);
 
-    await this.boss.start();
+    this.bossStart = this.boss.start();
   }
 
-  public async publish(jobName: QueueJob, data: any) {
+  public publish = async (jobName: QueueJob, data: any) => {
     await this.boss.publish(jobName, data, {startAfter: 5});
-  }
+  };
 
-  public async subscribe(jobName: QueueJob, jobStartCallback: JobStartCallback) {
-    await this.boss.subscribe(jobName, this.createJobStartCallback(jobStartCallback));
-  }
+  public subscribe = async (jobName: QueueJob, jobStartCallback: JobStartCallback) => {
+    if (this.bossStart) {
+      await this.bossStart;
+    }
+
+    this.boss.subscribe(jobName, this.createJobStartCallback(jobStartCallback));
+  };
 
   public createJobStartCallback(jobStartCallback: JobStartCallback) {
     return async ({data}: PgBoss.JobWithDoneCallback<JobOptions, void>) => await jobStartCallback(data);

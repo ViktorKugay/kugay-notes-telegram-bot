@@ -17,6 +17,7 @@ interface Envs {
   POSTGRES_PASSWORD: string;
   POSTGRES_DB: string;
   POSTGRES_PORT: number;
+  POSTGRES_SSL: boolean;
 }
 
 export const env = {
@@ -30,4 +31,5 @@ export const env = {
   POSTGRES_PASSWORD: envs.get('POSTGRES_PASSWORD').asString(),
   POSTGRES_DB: envs.get('POSTGRES_DB').asString(),
   POSTGRES_PORT: envs.get('POSTGRES_PORT').asPortNumber(),
+  POSTGRES_SSL: envs.get('POSTGRES_SSL').asBool(),
 } as Envs;

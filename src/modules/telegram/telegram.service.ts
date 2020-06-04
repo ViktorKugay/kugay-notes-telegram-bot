@@ -1,14 +1,11 @@
 import {buildProxySocksAgent} from './helpers/buildProxySocksAgent';
+import {StartMiddleware} from './middlewares/start.middleware';
 import {TelegrafOptions} from 'telegraf/typings/telegraf';
 import {ProjectTelegrafContext} from './telegram.types';
+import {Telegraf, Middleware} from 'telegraf';
 import {Injectable} from '@nestjs/common';
 import {env, isProd} from '../../config';
 import session from 'telegraf/session';
-import {Telegraf} from 'telegraf';
-
-import {AuthMiddleware} from './middlewares/auth.middleware';
-import {StartMiddleware} from './middlewares/start.middleware';
-import {StageMiddleware} from './middlewares/stage.middleware';
 
 const {TELEGRAM_ACCESS_TOKEN} = env;
 
@@ -16,16 +13,13 @@ const {TELEGRAM_ACCESS_TOKEN} = env;
 export class TelegramService {
   private telegraf: Telegraf<ProjectTelegrafContext>;
 
-  constructor(
-    private readonly stageMiddleware: StageMiddleware,
-    private readonly startMiddleware: StartMiddleware,
-    private readonly authMiddleware: AuthMiddleware,
-  ) {
+  constructor(private readonly startMiddleware: StartMiddleware) {
     this.telegraf = new Telegraf(TELEGRAM_ACCESS_TOKEN, this.buildTelegrafOptions());
   }
 
   onModuleInit() {
-    this.applyMiddlewares();
+    this.applyMiddleware(session());
+    this.telegraf.start(this.startMiddleware.use);
     this.telegraf.launch();
   }
 
@@ -33,11 +27,8 @@ export class TelegramService {
     return this.telegraf.telegram;
   }
 
-  private applyMiddlewares() {
-    this.telegraf.use(session());
-    this.telegraf.use(this.stageMiddleware.use);
-    this.telegraf.use(this.authMiddleware.use);
-    this.telegraf.start(this.startMiddleware.use);
+  public applyMiddleware(middleware: Middleware<ProjectTelegrafContext>) {
+    this.telegraf.use(middleware);
   }
 
   private buildTelegrafOptions(): TelegrafOptions | undefined {

@@ -1,6 +1,6 @@
 import {Repository} from 'typeorm';
-import {User} from '../../users/users.entity';
-import {ProjectTelegrafContext} from '../telegram.types';
+import {User} from '../users.entity';
+import {ProjectTelegrafContext} from '../../telegram/telegram.types';
 import {Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
 
