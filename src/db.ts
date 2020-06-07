@@ -1,6 +1,5 @@
 import path from 'path';
 import {env} from './config';
-import {TypeOrmModuleOptions} from '@nestjs/typeorm';
 
 export const dbConfig = {
   type: 'postgres' as 'postgres',
