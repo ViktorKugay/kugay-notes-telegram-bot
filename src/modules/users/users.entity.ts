@@ -1,19 +1,32 @@
-import {Entity, PrimaryGeneratedColumn, CreateDateColumn, UpdateDateColumn, Generated, Column} from 'typeorm';
+import {Entity, CreateDateColumn, UpdateDateColumn, Column, PrimaryColumn, OneToMany} from 'typeorm';
+import {Task} from '../tasks/tasks.entity';
+import {Note} from '../notes/notes.entity';
 
 @Entity({name: 'users'})
 export class User {
-  @PrimaryGeneratedColumn({type: 'uuid'})
-  @Generated('uuid')
-  id!: string;
+  @PrimaryColumn()
+  id!: number;
 
-  @Column({unique: true})
-  login!: string;
+  @Column({nullable: true})
+  firstName?: string;
 
-  @Column()
-  firstname!: string;
+  @Column({nullable: true})
+  lastName?: string;
 
-  @Column()
-  lastname!: string;
+  @Column({nullable: true})
+  username?: string;
+
+  @OneToMany(
+    () => Task,
+    el => el.user,
+  )
+  tasks!: Task[];
+
+  @OneToMany(
+    () => Note,
+    el => el.user,
+  )
+  notes!: Note[];
 
   @CreateDateColumn({type: 'timestamp with time zone'})
   createdAt!: Date;
