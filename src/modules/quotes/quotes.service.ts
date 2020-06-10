@@ -11,6 +11,18 @@ export class QuotesService {
     });
   }
 
+  public async getQuoteString() {
+    const quote = await this.getQuote();
+    return this.buildQuoteString(quote);
+  }
+
+  public buildQuoteString({text, author}: {text: string; author: string}) {
+    if (text[text.length - 1] === '.') {
+      text = text.slice(0, text.length - 1);
+    }
+    return `❗️${text}❗️️️${author ? '\n\n' : ''}${author}©️`;
+  }
+
   public async getQuote(): Promise<Quote> {
     const response: AxiosResponse<QuoteResponse> = await this.api({
       method: 'POST',

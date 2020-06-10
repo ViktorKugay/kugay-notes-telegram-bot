@@ -28,6 +28,10 @@ export class TelegramService {
     this.telegraf.launch();
   }
 
+  public notifyUserTask = async ({chatId, content}: {chatId: string; content: string}) => {
+    this.getTelegram().sendMessage(chatId, content);
+  };
+
   public getTelegram() {
     return this.telegraf.telegram;
   }

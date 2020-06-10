@@ -21,6 +21,6 @@ export class MainScene extends SceneBase implements OnModuleInit {
 
   private onHearTask = (ctx: ProjectTelegrafContext) => {
     ctx.scene.leave();
-    ctx.scene.enter(TelegrafScene.tasks);
+    ctx.scene.enter(TelegrafScene.tasks_main_menu);
   };
 }

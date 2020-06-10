@@ -18,8 +18,11 @@ export class Task {
   @Column()
   content!: string;
 
-  @Column({nullable: true})
-  dateExpiration!: string;
+  @Column({type: 'date', nullable: true})
+  date!: string;
+
+  @Column({type: 'time', nullable: true})
+  time!: string;
 
   @Column({default: true})
   isActiveTask!: boolean;

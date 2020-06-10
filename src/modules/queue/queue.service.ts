@@ -22,8 +22,8 @@ export class QueueService {
     this.bossStart = this.boss.start();
   }
 
-  public publish = (jobName: QueueJob, data: any) => {
-    this.boss.publish(jobName, data, {startAfter: 5});
+  public publish = (jobName: QueueJob, data: any, startAfter: Date) => {
+    this.boss.publish(jobName, data, {startAfter});
   };
 
   public subscribe = async (jobName: QueueJob, jobStartCallback: JobStartCallback) => {
@@ -38,7 +38,7 @@ export class QueueService {
     return async ({data}: PgBoss.JobWithDoneCallback<JobOptions, void>) => await jobStartCallback(data);
   }
 
-  public notifyUser = async (chatId: number, content: string | undefined) => {
-    return await this.publish(QueueJob.nofifyUserTask, {content, chatId});
+  public publishNotifyUserJob = async (chatId: number, content: string | undefined, startAfter: Date) => {
+    return await this.publish(QueueJob.nofifyUserTask, {content, chatId}, startAfter);
   };
 }
