@@ -7,6 +7,11 @@ bootstrap().catch(err => {
   process.exit(1);
 });
 
+bootstrap().catch(err => {
+  console.log(err);
+  process.exit(1);
+});
+
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.useGlobalFilters(new ErrorFilter());
