@@ -15,7 +15,7 @@ export class TelegramService {
 
   constructor(private readonly startMiddleware: StartMiddleware) {
     this.telegraf = new Telegraf(TELEGRAM_ACCESS_TOKEN, this.buildTelegrafOptions());
-    // сессия должна инициализировать перед всеми остальными middlewares, иначе 
+    // сессия должна инициализировать перед всеми остальными middlewares, иначе
     // сцены не успевают заинжектить свои состояния
     this.telegraf.use(session());
   }
@@ -23,8 +23,8 @@ export class TelegramService {
   onModuleInit() {
     this.telegraf.start(this.startMiddleware.use);
     this.telegraf.on('sticker', async (ctx: any) => {
-      console.log(ctx.message.sticker)
-    })
+      console.log(ctx.message.sticker);
+    });
     this.telegraf.launch();
   }
 

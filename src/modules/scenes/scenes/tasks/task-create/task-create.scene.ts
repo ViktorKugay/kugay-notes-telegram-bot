@@ -22,7 +22,7 @@ export class TaskCreateScene extends SceneBase implements OnModuleInit {
   private message = async (ctx: ProjectTelegrafContext) => {
     if (ctx.message) {
       await this.tasksService.createTask({content: ctx.message.text, user: ctx.session.user});
-      ctx.scene.enter(TelegrafScene.task_create_set_date)
+      ctx.scene.enter(TelegrafScene.task_create_set_date);
     }
   };
 }

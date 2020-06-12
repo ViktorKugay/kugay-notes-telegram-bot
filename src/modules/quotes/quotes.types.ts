@@ -6,8 +6,7 @@ export interface QuoteResponse {
   quoteLink: string;
 }
 
-
 export interface Quote {
-    text: string;
-    author: string;
+  text: string;
+  author: string;
 }

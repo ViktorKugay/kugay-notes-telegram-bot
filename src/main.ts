@@ -1,11 +1,6 @@
 import {NestFactory} from '@nestjs/core';
 import {AppModule} from './app.module';
-import { ErrorFilter } from './modules/common/error-filter';
-
-bootstrap().catch(err => {
-  console.log(err);
-  process.exit(1);
-});
+import {ErrorFilter} from './modules/common/error-filter';
 
 bootstrap().catch(err => {
   console.log(err);

@@ -1,4 +1,12 @@
-import {Entity, CreateDateColumn, UpdateDateColumn, Column, ManyToOne, Generated, PrimaryGeneratedColumn} from 'typeorm';
+import {
+  Entity,
+  CreateDateColumn,
+  UpdateDateColumn,
+  Column,
+  ManyToOne,
+  Generated,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import {User} from '../users/users.entity';
 
 @Entity({name: 'notes'})

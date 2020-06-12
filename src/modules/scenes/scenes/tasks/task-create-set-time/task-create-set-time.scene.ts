@@ -1,4 +1,4 @@
-import {TelegrafScene, ProjectTelegrafContext, EndSceneStatus} from '../../../../telegram/telegram.types';
+import {TelegrafScene, ProjectTelegrafContext} from '../../../../telegram/telegram.types';
 import {QueueService} from '../../../../queue/queue.service';
 import {TasksService} from '../../../../tasks/tasks.service';
 import {Injectable, OnModuleInit} from '@nestjs/common';
@@ -20,11 +20,11 @@ export class TaskCreateSetTimeScene extends SceneBase implements OnModuleInit {
 
   private back = (ctx: ProjectTelegrafContext) => {
     ctx.scene.enter(TelegrafScene.task_create_set_date);
-  }
+  };
 
   private enter = (ctx: ProjectTelegrafContext) => {
     ctx.reply(locales.scenes.tasks.time, keyboards.setNotificationTime);
-  }
+  };
 
   private setTime = async (ctx: ProjectTelegrafContext) => {
     if (ctx.message && ctx.message.text && ctx.chat) {
@@ -32,7 +32,7 @@ export class TaskCreateSetTimeScene extends SceneBase implements OnModuleInit {
       const userTaskNotificationDate = this.buildNiticationDate(task.date, ctx.message.text);
       await this.queueService.publishNotifyUserJob(ctx.chat.id, task.content, userTaskNotificationDate);
 
-      ctx.scene.enter(TelegrafScene.task_create_end, {taskCreateEnd: EndSceneStatus.with_date});
+      ctx.scene.enter(TelegrafScene.task_create_end, {prevScene: TelegrafScene.task_create_set_time});
     }
   };
 

@@ -7,17 +7,18 @@ export type TelegrafContextWithUser = TelegrafContext;
 export enum TelegrafScene {
   main = 'main',
   tasks_main_menu = 'tasks_main_menu',
+  tasks_show_main_menu = 'tasks_show_main_menu',
+  tasks_show = 'tasks_show',
   task_create = 'task_create',
   task_create_set_date = 'task_create_set_date',
   task_create_set_time = 'task_create_set_time',
   task_create_end = 'task_create_end',
-  
 }
 
 export type Scenes = any;
 
 export enum TelegrafListeners {
-  message = 'message'
+  message = 'message',
 }
 
 export interface UserSession {
@@ -26,18 +27,19 @@ export interface UserSession {
   isSetTimeMode: boolean;
   taskData: {
     date: string;
-  }
+  };
 }
 
-export enum EndSceneStatus {
-  with_date = 'with_date',
-  without_date = 'without_date',
+export enum ShowTaskType {
+  resolved = 'resolved',
+  unresolved = 'unresolved',
 }
 
 interface SceneWithState extends SceneContext<Scenes> {
   state: {
-    taskCreateEnd: EndSceneStatus
-  }
+    prevScene: TelegrafScene;
+    showTaskType: ShowTaskType;
+  };
 }
 
 export interface ProjectTelegrafContext extends TelegrafContext {

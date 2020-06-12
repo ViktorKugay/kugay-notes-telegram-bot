@@ -1,4 +1,4 @@
-import {TelegrafScene, ProjectTelegrafContext, EndSceneStatus} from '../../../../telegram/telegram.types';
+import {TelegrafScene, ProjectTelegrafContext} from '../../../../telegram/telegram.types';
 import {QueueService} from '../../../../queue/queue.service';
 import {TasksService} from '../../../../tasks/tasks.service';
 import {Injectable, OnModuleInit} from '@nestjs/common';
@@ -7,7 +7,11 @@ import locales from '../../../locales/ru.json';
 import keyboards from '../tasks.keyboard';
 
 const withoutNotificationsAction = locales.keyboards.date.never;
-const setDateActions = [locales.keyboards.date.today, locales.keyboards.date.tomorrow, locales.keyboards.date.after_tomorrow];
+const setDateActions = [
+  locales.keyboards.date.today,
+  locales.keyboards.date.tomorrow,
+  locales.keyboards.date.after_tomorrow,
+];
 
 @Injectable()
 export class TaskCreateSetDateScene extends SceneBase implements OnModuleInit {
@@ -23,7 +27,7 @@ export class TaskCreateSetDateScene extends SceneBase implements OnModuleInit {
 
   private enter = (ctx: ProjectTelegrafContext) => {
     ctx.reply(locales.scenes.tasks.date, keyboards.setNotificationDate);
-  }
+  };
 
   private setDate = async (ctx: ProjectTelegrafContext) => {
     await this.tasksService.updateNewTask(ctx.session.user, {
@@ -34,8 +38,8 @@ export class TaskCreateSetDateScene extends SceneBase implements OnModuleInit {
   };
 
   private toCreateTaskEndScene = async (ctx: ProjectTelegrafContext) => {
-    ctx.scene.enter(TelegrafScene.task_create_end, {taskCreateEnd: EndSceneStatus.without_date});
-  }
+    ctx.scene.enter(TelegrafScene.task_create_end, {prevScene: TelegrafScene.task_create_set_date});
+  };
 
   private buildTaskDate(date: any) {
     switch (date) {

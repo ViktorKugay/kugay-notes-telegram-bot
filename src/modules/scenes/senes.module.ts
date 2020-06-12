@@ -14,7 +14,9 @@ import {TaskCreateEndScene} from './scenes/tasks/task-create-end/task-create-end
 import {TaskCreateScene} from './scenes/tasks/task-create/task-create.scene';
 import {TaskCreateSetDateScene} from './scenes/tasks/task-create-set-date/task-create-set-date.scene';
 import {TaskCreateSetTimeScene} from './scenes/tasks/task-create-set-time/task-create-set-time.scene';
-import { TasksScene } from './scenes/tasks/tasks.scene';
+import {TasksScene} from './scenes/tasks/tasks.scene';
+import {TasksShowScene} from './scenes/tasks/tasks-show/tasks-show.scene';
+import {TasksShowMainMenuScene} from './scenes/tasks/tasks-show-resolved/tasks-show-main-menu';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User, Task]), QueueModule, TelegramModule, QuotesModule, TasksModule],
@@ -27,7 +29,9 @@ import { TasksScene } from './scenes/tasks/tasks.scene';
     TaskCreateScene,
     TaskCreateSetDateScene,
     TaskCreateSetTimeScene,
-    TasksScene
+    TasksScene,
+    TasksShowScene,
+    TasksShowMainMenuScene,
   ],
   exports: [
     SceneService,
@@ -38,7 +42,9 @@ import { TasksScene } from './scenes/tasks/tasks.scene';
     TaskCreateScene,
     TaskCreateSetDateScene,
     TaskCreateSetTimeScene,
-    TasksScene
+    TasksScene,
+    TasksShowScene,
+    TasksShowMainMenuScene,
   ],
 })
 export class ScenesModule {}

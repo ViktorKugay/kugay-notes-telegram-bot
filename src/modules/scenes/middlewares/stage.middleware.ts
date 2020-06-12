@@ -10,6 +10,8 @@ import {TaskCreateSetTimeScene} from '../scenes/tasks/task-create-set-time/task-
 import {TaskCreateEndScene} from '../scenes/tasks/task-create-end/task-create-end.scene';
 import {TaskCreateSetDateScene} from '../scenes/tasks/task-create-set-date/task-create-set-date.scene';
 import {MainScene} from '../../scenes/scenes/main/main.scene';
+import {TasksShowScene} from '../scenes/tasks/tasks-show/tasks-show.scene';
+import {TasksShowMainMenuScene} from '../scenes/tasks/tasks-show-resolved/tasks-show-main-menu';
 
 @Injectable()
 export class StageMiddleware {
@@ -21,6 +23,8 @@ export class StageMiddleware {
     private readonly tasksCreateSetDateScene: TaskCreateSetDateScene,
     private readonly taskCreateEndScene: TaskCreateEndScene,
     private readonly mainScene: MainScene,
+    private readonly tasksShowScene: TasksShowScene,
+    private readonly tasksShowMainMenuScene: TasksShowMainMenuScene,
   ) {
     this.stage = new Stage([
       this.tasksMainMenuScene.scene,
@@ -29,6 +33,8 @@ export class StageMiddleware {
       this.tasksCreateSetDateScene.scene,
       this.taskCreateEndScene.scene,
       this.mainScene.scene,
+      this.tasksShowScene.scene,
+      this.tasksShowMainMenuScene.scene,
     ]);
   }
 
