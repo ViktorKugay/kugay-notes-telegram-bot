@@ -3,6 +3,7 @@ import {User} from '../users.entity';
 import {ProjectTelegrafContext} from '../../telegram/telegram.types';
 import {Injectable} from '@nestjs/common';
 import {InjectRepository} from '@nestjs/typeorm';
+import {prepareUser} from './helpers/prepareUser';
 
 @Injectable()
 export class AuthMiddleware {
@@ -12,12 +13,13 @@ export class AuthMiddleware {
     if (ctx.from) {
       if (!ctx.session.user) {
         const {id, first_name, last_name, username} = ctx.from;
-        const user = await this.usersRepo.findOne({where: {id}, relations: ['tasks']});
+
+        let user = await this.usersRepo.findOne({where: {id}, relations: ['tasks']});
         if (!user) {
-          ctx.session.user = await this.usersRepo.save({id, firstName: first_name, lastName: last_name, username});
-        } else {
-          ctx.session.user = user;
+          user = await this.usersRepo.save({id, firstName: first_name, lastName: last_name, username});
         }
+
+        ctx.session.user = prepareUser(user);
       }
     }
 
