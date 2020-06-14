@@ -9,7 +9,7 @@ module.exports = {
   username: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
   database: process.env.POSTGRES_DB,
-  // ssl: {rejectUnauthorized: false},
+  ssl: {rejectUnauthorized: false},
   entities: [path.resolve(`${__dirname}/src/modules/**/*.entity.ts`)],
   migrations: [path.join(__dirname, './src/migrations/*.ts')],
   cli: {migrationsDir: 'src/migrations'}
