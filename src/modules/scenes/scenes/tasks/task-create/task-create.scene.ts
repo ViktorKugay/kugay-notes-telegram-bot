@@ -16,13 +16,13 @@ export class TaskCreateScene extends SceneBase implements OnModuleInit {
   }
 
   private enter = (ctx: ProjectTelegrafContext) => {
-    ctx.reply(locales.scenes.tasks.start);
+    ctx.reply(locales.scenes.tasks.tasks_create);
   };
 
   private message = async (ctx: ProjectTelegrafContext) => {
     if (ctx.message) {
       await this.tasksService.createTask({content: ctx.message.text, user: ctx.session.user});
-      ctx.scene.enter(TelegrafScene.task_create_set_date);
+      await ctx.scene.enter(TelegrafScene.task_create_set_date);
     }
   };
 }

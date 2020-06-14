@@ -17,9 +17,22 @@ import {TaskCreateSetTimeScene} from './scenes/tasks/task-create-set-time/task-c
 import {TasksScene} from './scenes/tasks/tasks.scene';
 import {TasksShowScene} from './scenes/tasks/tasks-show/tasks-show.scene';
 import {TasksShowMainMenuScene} from './scenes/tasks/tasks-show-resolved/tasks-show-main-menu';
+import {AliasesModule} from '../aliases/aliases.module';
+import {AliasCreateSetAliasScene} from './scenes/aliases/aliases-create-set-alias/aliases-create-set-alias';
+import {AliasCreateSetSceneScene} from './scenes/aliases/aliases-create-set-scene/aliases-create-set-scene.scene';
+import {AliasesMainMenuScene} from './scenes/aliases/aliases-main-menu/aliases-main-menu.scene';
+import {AliasesShowScene} from './scenes/aliases/aliases-show/aliases-show.scene';
+import { SettingsMainMenuScene } from './scenes/settings/settings-main-menu/settings-main-menu.scene';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Task]), QueueModule, TelegramModule, QuotesModule, TasksModule],
+  imports: [
+    TypeOrmModule.forFeature([User, Task]),
+    QueueModule,
+    TelegramModule,
+    QuotesModule,
+    TasksModule,
+    AliasesModule,
+  ],
   providers: [
     SceneService,
     MainScene,
@@ -32,6 +45,11 @@ import {TasksShowMainMenuScene} from './scenes/tasks/tasks-show-resolved/tasks-s
     TasksScene,
     TasksShowScene,
     TasksShowMainMenuScene,
+    AliasCreateSetAliasScene,
+    AliasCreateSetSceneScene,
+    AliasesMainMenuScene,
+    AliasesShowScene,
+    SettingsMainMenuScene
   ],
   exports: [
     SceneService,
@@ -45,6 +63,11 @@ import {TasksShowMainMenuScene} from './scenes/tasks/tasks-show-resolved/tasks-s
     TasksScene,
     TasksShowScene,
     TasksShowMainMenuScene,
+    AliasCreateSetAliasScene,
+    AliasCreateSetSceneScene,
+    AliasesMainMenuScene,
+    AliasesShowScene,
+    SettingsMainMenuScene
   ],
 })
 export class ScenesModule {}

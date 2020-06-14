@@ -13,8 +13,9 @@ export class MainScene extends SceneBase implements OnModuleInit {
   onModuleInit() {
     this.scene.enter(this.entry);
     this.scene.hears(locales.keyboards.main.tasks, this.task);
-    this.scene.hears(locales.keyboards.tasks.create, this.toTaskCreateScene);
-    this.scene.hears(locales.keyboards.tasks.show, this.toTaskShowScene);
+    this.scene.hears(locales.keyboards.actions.create, this.toTaskCreateScene);
+    this.scene.hears(locales.keyboards.actions.show, this.toTaskShowScene);
+    this.scene.hears(locales.keyboards.settings.info, this.toSettingsScene);
   }
 
   private entry = async (ctx: ProjectTelegrafContext) => {
@@ -33,5 +34,9 @@ export class MainScene extends SceneBase implements OnModuleInit {
 
   private toTaskShowScene = (ctx: ProjectTelegrafContext) => {
     ctx.scene.enter(TelegrafScene.tasks_show_main_menu);
+  };
+
+  private toSettingsScene = (ctx: ProjectTelegrafContext) => {
+    ctx.scene.enter(TelegrafScene.settings_main_menu);
   };
 }

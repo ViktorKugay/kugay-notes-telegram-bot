@@ -15,9 +15,9 @@ export class TaskCreateEndScene extends SceneBase implements OnModuleInit {
 
   public enter = async (ctx: ProjectTelegrafContext) => {
     if (ctx.scene.state.prevScene === TelegrafScene.task_create_set_time) {
-      ctx.reply(locales.scenes.tasks.end_with_notification);
+      ctx.reply(locales.scenes.tasks.tasks_end_with_notification);
     } else {
-      ctx.reply(locales.scenes.tasks.end_without_notification);
+      ctx.reply(locales.scenes.tasks.tasks_end_without_notification);
     }
 
     ctx.scene.enter(TelegrafScene.main, {prevScene: TelegrafScene.task_create_end});

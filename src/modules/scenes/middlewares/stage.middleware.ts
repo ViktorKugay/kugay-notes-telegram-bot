@@ -12,6 +12,11 @@ import {TaskCreateSetDateScene} from '../scenes/tasks/task-create-set-date/task-
 import {MainScene} from '../../scenes/scenes/main/main.scene';
 import {TasksShowScene} from '../scenes/tasks/tasks-show/tasks-show.scene';
 import {TasksShowMainMenuScene} from '../scenes/tasks/tasks-show-resolved/tasks-show-main-menu';
+import {AliasesShowScene} from '../scenes/aliases/aliases-show/aliases-show.scene';
+import {AliasCreateSetSceneScene} from '../scenes/aliases/aliases-create-set-scene/aliases-create-set-scene.scene';
+import {AliasCreateSetAliasScene} from '../scenes/aliases/aliases-create-set-alias/aliases-create-set-alias';
+import {AliasesMainMenuScene} from '../scenes/aliases/aliases-main-menu/aliases-main-menu.scene';
+import { SettingsMainMenuScene } from '../scenes/settings/settings-main-menu/settings-main-menu.scene';
 
 @Injectable()
 export class StageMiddleware {
@@ -25,6 +30,11 @@ export class StageMiddleware {
     private readonly mainScene: MainScene,
     private readonly tasksShowScene: TasksShowScene,
     private readonly tasksShowMainMenuScene: TasksShowMainMenuScene,
+    private readonly aliasesShowScene: AliasesShowScene,
+    private readonly aliasCreateSetAliasScene: AliasCreateSetAliasScene,
+    private readonly aliasCreateSetSceneScene: AliasCreateSetSceneScene,
+    private readonly aliasesMainMenuScene: AliasesMainMenuScene,
+    private readonly settingsMainMenuScene: SettingsMainMenuScene
   ) {
     this.stage = new Stage([
       this.tasksMainMenuScene.scene,
@@ -35,6 +45,11 @@ export class StageMiddleware {
       this.mainScene.scene,
       this.tasksShowScene.scene,
       this.tasksShowMainMenuScene.scene,
+      this.aliasesMainMenuScene.scene,
+      this.aliasCreateSetSceneScene.scene,
+      this.aliasCreateSetAliasScene.scene,
+      this.aliasesShowScene.scene,
+      this.settingsMainMenuScene.scene
     ]);
   }
 

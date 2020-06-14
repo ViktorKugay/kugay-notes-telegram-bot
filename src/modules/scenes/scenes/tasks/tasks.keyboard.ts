@@ -3,26 +3,24 @@ import chunk from 'lodash/chunk';
 import {buildTelegrafKeyboard} from '../../helpers/buildTelegrafKeyboard.js';
 
 export const showResolvedOrUnresolved = buildTelegrafKeyboard([
-  [locales.keyboards.tasks_type.resolved, locales.keyboards.tasks_type.unresolved],
+  [locales.keyboards.tasks.type.resolved, locales.keyboards.tasks.type.unresolved],
 ]);
 
-export const navigation = buildTelegrafKeyboard([
-  [locales.keyboards.navigation.back, locales.keyboards.navigation.next],
-]);
+export const navigation = buildTelegrafKeyboard([[locales.keyboards.actions.back, locales.keyboards.actions.next]]);
 
 export const showOrCreate = buildTelegrafKeyboard([
-  [locales.keyboards.tasks.show, locales.keyboards.tasks.create],
-  [locales.keyboards.navigation.back],
+  [locales.keyboards.actions.show, locales.keyboards.actions.create],
+  [locales.keyboards.actions.back],
 ]);
 
 export const setNotificationDate = buildTelegrafKeyboard([
   [locales.keyboards.date.never],
   [locales.keyboards.date.today, locales.keyboards.date.tomorrow, locales.keyboards.date.after_tomorrow],
-  [locales.keyboards.navigation.back],
+  [locales.keyboards.actions.back],
 ]);
 
 export const setNotificationTime = buildTelegrafKeyboard([
-  [locales.keyboards.navigation.back],
+  [locales.keyboards.actions.back],
   ...chunk(Object.keys(locales.keyboards.time), 3),
 ]);
 

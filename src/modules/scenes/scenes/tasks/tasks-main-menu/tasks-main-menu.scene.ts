@@ -12,9 +12,9 @@ export class TasksMainMenuScene extends SceneBase implements OnModuleInit {
 
   onModuleInit() {
     this.scene.enter(this.enter);
-    this.scene.hears(locales.keyboards.tasks.create, this.toTaskCreateScene);
-    this.scene.hears(locales.keyboards.tasks.show, this.toTaskShowScene);
-    this.scene.hears(locales.keyboards.navigation.back, this.back);
+    this.scene.hears(locales.keyboards.actions.create, this.toTaskCreateScene);
+    this.scene.hears(locales.keyboards.actions.show, this.toTaskShowScene);
+    this.scene.hears(locales.keyboards.actions.back, this.back);
   }
 
   private back = (ctx: ProjectTelegrafContext) => {

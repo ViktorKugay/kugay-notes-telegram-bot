@@ -26,7 +26,7 @@ export class TaskCreateSetDateScene extends SceneBase implements OnModuleInit {
   }
 
   private enter = (ctx: ProjectTelegrafContext) => {
-    ctx.reply(locales.scenes.tasks.date, keyboards.setNotificationDate);
+    ctx.reply(locales.scenes.tasks.tasks_set_date, keyboards.setNotificationDate);
   };
 
   private setDate = async (ctx: ProjectTelegrafContext) => {

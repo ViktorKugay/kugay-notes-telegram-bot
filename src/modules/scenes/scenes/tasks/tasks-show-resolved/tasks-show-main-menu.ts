@@ -12,12 +12,12 @@ export class TasksShowMainMenuScene extends SceneBase implements OnModuleInit {
 
   onModuleInit() {
     this.scene.enter(this.enter);
-    this.scene.hears(locales.keyboards.tasks_type.resolved, this.toShowResolvedTasks);
-    this.scene.hears(locales.keyboards.tasks_type.unresolved, this.toShowUnresolvedTasks);
+    this.scene.hears(locales.keyboards.tasks.type.resolved, this.toShowResolvedTasks);
+    this.scene.hears(locales.keyboards.tasks.type.unresolved, this.toShowUnresolvedTasks);
   }
 
   public enter = (ctx: ProjectTelegrafContext) => {
-    ctx.reply(locales.scenes.tasks.task_type, keyboards.showResolvedOrUnresolved);
+    ctx.reply(locales.scenes.tasks.tasks_select_task_type, keyboards.showResolvedOrUnresolved);
   };
 
   public toShowResolvedTasks = async (ctx: ProjectTelegrafContext) => {
