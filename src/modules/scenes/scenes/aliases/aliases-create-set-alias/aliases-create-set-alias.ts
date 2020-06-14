@@ -1,8 +1,8 @@
+import {TelegrafScene, ProjectTelegrafContext, TelegrafListeners} from '../../../../telegram/telegram.types';
+import {AliasesService} from '../../../../aliases/aliases.service';
 import {SceneBase} from 'src/modules/scenes/scene.base';
 import {Injectable, OnModuleInit} from '@nestjs/common';
-import {TelegrafScene, ProjectTelegrafContext, TelegrafListeners} from '../../../../telegram/telegram.types';
 import locales from '../../../locales/ru.json';
-import {AliasesService} from '../../../../aliases/aliases.service';
 
 @Injectable()
 export class AliasCreateSetAliasScene extends SceneBase implements OnModuleInit {
@@ -23,6 +23,7 @@ export class AliasCreateSetAliasScene extends SceneBase implements OnModuleInit 
     if (ctx.message) {
       await this.aliasesService.updateNewAlias(ctx.session.user, {alias: ctx.message.text});
       await ctx.reply(locales.scenes.aliases.aliases_create_alias_success);
+      await ctx.scene.enter(TelegrafScene.main);
     }
   };
 }
