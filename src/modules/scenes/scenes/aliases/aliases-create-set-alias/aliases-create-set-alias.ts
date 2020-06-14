@@ -23,7 +23,7 @@ export class AliasCreateSetAliasScene extends SceneBase implements OnModuleInit 
     if (ctx.message) {
       await this.aliasesService.updateNewAlias(ctx.session.user, {alias: ctx.message.text});
       await ctx.reply(locales.scenes.aliases.aliases_create_alias_success);
-      await ctx.scene.enter(TelegrafScene.main);
+      await ctx.scene.enter(TelegrafScene.main, {prevScene: TelegrafScene.alias_create_set_alias});
     }
   };
 }

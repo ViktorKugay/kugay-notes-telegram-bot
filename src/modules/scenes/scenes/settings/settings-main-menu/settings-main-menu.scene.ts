@@ -17,7 +17,7 @@ export class SettingsMainMenuScene extends SceneBase implements OnModuleInit {
 
   private entry = async (ctx: ProjectTelegrafContext) => {
     if (!ctx.scene.state.prevScene) {
-      await ctx.reply(locales.scenes.main.welcome, keyboard.settingsMainMenu);
+      await ctx.reply(locales.scenes.settings.settings_main_menu, keyboard.settingsMainMenu);
     }
   };
 

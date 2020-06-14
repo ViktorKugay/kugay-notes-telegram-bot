@@ -6,11 +6,13 @@ import {
   ManyToOne,
   PrimaryGeneratedColumn,
   Generated,
+  Unique,
 } from 'typeorm';
 import {User} from '../users/users.entity';
 import {TelegrafScene} from '../telegram/telegram.types';
 
 @Entity({name: 'aliases'})
+@Unique('user_alias', ['user', 'scene'])
 export class Alias {
   @PrimaryGeneratedColumn({type: 'uuid'})
   @Generated('uuid')
