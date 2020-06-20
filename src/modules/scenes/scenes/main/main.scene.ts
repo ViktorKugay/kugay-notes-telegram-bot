@@ -1,4 +1,5 @@
 import {TelegrafScene, ProjectTelegrafContext} from '../../../telegram/telegram.types';
+import {hasPrevScene} from '../../helpers/hasPrevScene';
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import {SceneBase} from '../../scene.base';
 import locales from '../../locales/ru.json';
@@ -11,32 +12,32 @@ export class MainScene extends SceneBase implements OnModuleInit {
   }
 
   onModuleInit() {
-    this.scene.enter(this.entry);
-    this.scene.hears(locales.keyboards.main.tasks, this.task);
-    this.scene.hears(locales.keyboards.actions.create, this.toTaskCreateScene);
-    this.scene.hears(locales.keyboards.actions.show, this.toTaskShowScene);
-    this.scene.hears(locales.keyboards.settings.info, this.toSettingsScene);
+    this.scene.enter(this.onEnter);
+    this.scene.hears(locales.keyboards.main.tasks, this.toTasksMain);
+    this.scene.hears(locales.keyboards.actions.create, this.toCreateTask);
+    this.scene.hears(locales.keyboards.actions.show, this.toGetTasks);
+    this.scene.hears(locales.keyboards.settings.info, this.toSettings);
   }
 
-  private entry = async (ctx: ProjectTelegrafContext) => {
-    if (!ctx.scene.state.prevScene) {
+  private onEnter = async (ctx: ProjectTelegrafContext) => {
+    if (!hasPrevScene(ctx)) {
       await ctx.reply(locales.scenes.main.welcome, keyboard.tasksOrNotes);
     }
   };
 
-  private task = (ctx: ProjectTelegrafContext) => {
-    ctx.scene.enter(TelegrafScene.tasks_main_menu);
+  private toTasksMain = async (ctx: ProjectTelegrafContext) => {
+    return await ctx.scene.enter(TelegrafScene.tasks_main);
   };
 
-  private toTaskCreateScene = (ctx: ProjectTelegrafContext) => {
-    ctx.scene.enter(TelegrafScene.task_create);
+  private toCreateTask = async (ctx: ProjectTelegrafContext) => {
+    return await ctx.scene.enter(TelegrafScene.task_create_set_task);
   };
 
-  private toTaskShowScene = (ctx: ProjectTelegrafContext) => {
-    ctx.scene.enter(TelegrafScene.tasks_show_main_menu);
+  private toGetTasks = async (ctx: ProjectTelegrafContext) => {
+    return await ctx.scene.enter(TelegrafScene.tasks_get_main);
   };
 
-  private toSettingsScene = (ctx: ProjectTelegrafContext) => {
-    ctx.scene.enter(TelegrafScene.settings_main_menu);
+  private toSettings = async (ctx: ProjectTelegrafContext) => {
+    return await ctx.scene.enter(TelegrafScene.settings_main);
   };
 }

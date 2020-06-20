@@ -3,8 +3,8 @@ import {buildTelegrafKeyboard} from '../../helpers/buildTelegrafKeyboard.js';
 import {TelegrafScene} from '../../../telegram/telegram.types.js';
 
 export const aliasSceneMap: Record<string, TelegrafScene> = {
-  'Создать задачу': TelegrafScene.task_create,
-  'Показать задачи': TelegrafScene.tasks_show_main_menu,
+  'Создать задачу': TelegrafScene.task_create_set_task,
+  'Показать задачи': TelegrafScene.tasks_get_main,
 };
 
 export const showOrCreate = buildTelegrafKeyboard([[locales.keyboards.actions.create, locales.keyboards.actions.show]]);

@@ -5,8 +5,8 @@ import {dbConfig} from '../../db';
 
 @Injectable()
 export class QueueService {
-  private boss!: PgBoss;
-  private bossStart?: Promise<PgBoss>;
+  private boss: PgBoss;
+  private bossStartJob: Promise<PgBoss> | undefined;
 
   constructor() {
     this.boss = new PgBoss({
@@ -19,7 +19,7 @@ export class QueueService {
       ssl: dbConfig.ssl,
     } as PgBoss.ConstructorOptions);
 
-    this.bossStart = this.boss.start();
+    this.bossStartJob = this.boss.start();
   }
 
   public publish = (jobName: QueueJob, data: any, startAfter: Date) => {
@@ -27,11 +27,8 @@ export class QueueService {
   };
 
   public subscribe = async (jobName: QueueJob, jobStartCallback: JobStartCallback) => {
-    if (this.bossStart) {
-      await this.bossStart;
-    }
-
-    this.boss.subscribe(jobName, this.createJobStartCallback(jobStartCallback));
+    await this.awaitPgBossInitialization();
+    await this.boss.subscribe(jobName, this.createJobStartCallback(jobStartCallback));
   };
 
   public createJobStartCallback(jobStartCallback: JobStartCallback) {
@@ -41,4 +38,15 @@ export class QueueService {
   public publishNotifyUserJob = async (chatId: number, content: string | undefined, startAfter: Date) => {
     return await this.publish(QueueJob.nofifyUserTask, {content, chatId}, startAfter);
   };
+
+  private async awaitPgBossInitialization() {
+    // ожидаем здесь pg-boss, потому что подписки инициализируются
+    // в различных модулях приложения. Из-за этого некоторые модули
+    // пытаются подписать ещё до того, как pg-boss успел
+    // инициализироваться. Чтобы придотвратить подобную ошибку
+    // приходится оиждать инициализацию
+    if (this.bossStartJob) {
+      await this.bossStartJob;
+    }
+  }
 }

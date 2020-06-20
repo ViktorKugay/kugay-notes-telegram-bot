@@ -1,6 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import axios, {AxiosInstance, AxiosResponse} from 'axios';
 import {QuoteResponse, Quote} from './quotes.types';
+import {buildQuoteString} from './helpers/buildQuoteString';
 
 @Injectable()
 export class QuotesService {
@@ -13,14 +14,7 @@ export class QuotesService {
 
   public async getQuoteString() {
     const quote = await this.getQuote();
-    return this.buildQuoteString(quote);
-  }
-
-  public buildQuoteString({text, author}: {text: string; author: string}) {
-    if (text[text.length - 1] === '.') {
-      text = text.slice(0, text.length - 1);
-    }
-    return `❗️${text}❗️️️${author ? '\n\n' : ''}${author}©️`;
+    return buildQuoteString(quote);
   }
 
   public async getQuote(): Promise<Quote> {

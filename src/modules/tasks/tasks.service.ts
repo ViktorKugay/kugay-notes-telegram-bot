@@ -3,6 +3,8 @@ import {InjectRepository} from '@nestjs/typeorm';
 import {Repository, getManager} from 'typeorm';
 import {Task} from './tasks.entity';
 import {User} from '../users/users.entity';
+import { CustomError } from 'src/utils/error';
+import errorNames from '../common/error-names';
 
 @Injectable()
 export class TasksService {
@@ -12,29 +14,29 @@ export class TasksService {
     return await this.tasksRepo.save(task);
   }
 
-  public updateNewTask(user: User, data: Partial<Task>): Promise<Task> {
-    return getManager().transaction(async manager => {
-      const task = await this.findNewUserTask(user);
-      await manager.update(Task, task.id, data);
+  public async updateTaskById(id: string, data: Partial<Task>) {
+    return await this.tasksRepo.save({id, ...data});
+  }
 
-      return {...task, ...data};
+  public async removeLatestUserTask(user: User) {
+    return await getManager().transaction(async manager => {
+      const task = await manager.findOne(Task, {where: {user}, order: {createdAt: 'DESC'}});
+      if (!task) {
+        throw new CustomError(errorNames.TASK_DOESNT_EXIST);
+      }
+
+      await manager.delete(Task, task);
     });
   }
 
-  public async findNewUserTask(user: User): Promise<Task> {
-    const [task]: [Task] = await this.tasksRepo
-      .createQueryBuilder()
-      .select('*')
-      .from(Task, 'tasks')
-      .where({user})
-      .orderBy('tasks.createdAt', 'DESC')
-      .limit(1)
-      .execute();
+  public async updateLatestTaskByUser(user: User, data: Partial<Task>): Promise<Task> {
+    return await getManager().transaction(async manager => {
+      const task = await manager.findOne(Task, {where: {user}, order: {createdAt: 'DESC'}});
+      if (!task) {
+        throw new CustomError(errorNames.TASK_DOESNT_EXIST);
+      }
 
-    return task;
-  }
-
-  public async updateTask(id: string, data: Partial<Task>) {
-    return await this.tasksRepo.save({id, ...data});
+      return await manager.save(Task, {...task, ...data});
+    });
   }
 }

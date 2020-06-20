@@ -1,8 +1,10 @@
-import {Injectable} from '@nestjs/common';
+import {TelegrafScene} from '../telegram/telegram.types';
+import errorNames from '../common/error-names';
 import {InjectRepository} from '@nestjs/typeorm';
+import { CustomError } from '../../utils/error';
 import {Repository, getManager} from 'typeorm';
 import {User} from '../users/users.entity';
-import {TelegrafScene} from '../telegram/telegram.types';
+import {Injectable} from '@nestjs/common';
 import {Alias} from './aliases.entity';
 
 @Injectable()
@@ -13,25 +15,25 @@ export class AliasesService {
     return await this.aliasesRepo.save({scene, user});
   }
 
-  public updateNewAlias(user: User, data: Partial<Alias>): Promise<Alias> {
-    return getManager().transaction(async manager => {
-      const task = await this.findNewUserAlias(user);
-      await manager.update(Alias, task.id, data);
+  public async removeLatestUserAlias(user: User) {
+    return await getManager().transaction(async manager => {
+      const alias = await manager.findOne(Alias, {where: {user}, order: {createdAt: 'DESC'}});
+      if (!alias) {
+        throw new CustomError(errorNames.ALIAS_DOESNT_EXIST);
+      }
 
-      return {...task, ...data};
+      await manager.delete(Alias, alias);
     });
   }
 
-  public async findNewUserAlias(user: User): Promise<Alias> {
-    const [alias]: [Alias] = await this.aliasesRepo
-      .createQueryBuilder()
-      .select('*')
-      .from(Alias, 'aliases')
-      .where({user})
-      .orderBy('aliases.createdAt', 'DESC')
-      .limit(1)
-      .execute();
+  public async updateLatestAliasByUser(user: User, data: Partial<Alias>): Promise<Alias> {
+    return await getManager().transaction(async manager => {
+      const alias = await manager.findOne(Alias, {where: {user}, order: {createdAt: 'DESC'}});
+      if (!alias) {
+        throw new CustomError(errorNames.ALIAS_DOESNT_EXIST);
+      }
 
-    return alias;
+      return await manager.save(Alias, {...alias, ...data});
+    });
   }
 }

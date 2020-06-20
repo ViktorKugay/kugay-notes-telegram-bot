@@ -5,27 +5,28 @@ import {SceneContext} from 'telegraf/typings/stage';
 export type TelegrafContextWithUser = TelegrafContext;
 
 export enum TelegrafScene {
+  // ===== Main Menu =====
   main = 'main',
 
   // ====== Tasks ======
-  tasks_main_menu = 'tasks_main_menu',
-  tasks_show_main_menu = 'tasks_show_main_menu',
-  tasks_show = 'tasks_show',
+  tasks_main = 'tasks_main',
+  tasks_get_main = 'tasks_get_main',
+  tasks_get_tasks_list = 'tasks_get_tasks_list',
 
   // ===== Tasks Create =====
-  task_create = 'task_create',
+  task_create_set_task = 'task_create_set_task',
   task_create_set_date = 'task_create_set_date',
   task_create_set_time = 'task_create_set_time',
-  task_create_end = 'task_create_end',
+  task_create_success = 'task_create_success',
 
   // ====== Aliases ======
-  aliases_main_menu = 'alias_main_menu',
+  aliases_main = 'aliases_main',
   alias_create_set_scene = 'alias_craete_set_scene',
   alias_create_set_alias = 'alias_create_set_alias',
-  aliases_show = 'aliases_show',
+  aliases_get_aliases_list = 'aliases_get_aliases_list',
 
   // ====== Settings ======
-  settings_main_menu = 'settings_main_menu',
+  settings_main = 'settings_main',
 }
 
 export type Scenes = any;
@@ -38,15 +39,15 @@ export interface UserSession {
   user: User;
 }
 
-export enum ShowTaskType {
+export enum TaskStatus {
   resolved = 'resolved',
   unresolved = 'unresolved',
 }
 
-interface SceneWithState extends SceneContext<Scenes> {
+export interface SceneWithState extends SceneContext<Scenes> {
   state: {
     prevScene: TelegrafScene;
-    showTaskType: ShowTaskType;
+    taskStatus: TaskStatus | undefined;
   };
 }
 
