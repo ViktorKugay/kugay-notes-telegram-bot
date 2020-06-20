@@ -16,7 +16,7 @@ import {TaskCreateSetDateScene} from './scenes/tasks/tasks-create/task-create-se
 import {TaskCreateSetTimeScene} from './scenes/tasks/tasks-create/task-create-set-time.scene';
 import {TasksScene} from './scenes/tasks/tasks.scene';
 import {TasksGetTasksListScene} from './scenes/tasks/tasks-get/tasks-get-tasks-list.scene';
-import {TasksGetMainScene} from './scenes/tasks/tasks-get/tasks-get-main';
+import {TasksGetMainScene} from './scenes/tasks/tasks-get/tasks-get-main.scene';
 import {AliasesModule} from '../aliases/aliases.module';
 import {AliasCreateSetAliasScene} from './scenes/aliases/aliases-create/aliases-create-set-alias.scene';
 import {AliasCreateSetSceneScene} from './scenes/aliases/aliases-create/aliases-create-set-scene.scene';

@@ -11,7 +11,7 @@ import {TaskCreateSuccessScene} from '../scenes/tasks/tasks-create/task-create-s
 import {TaskCreateSetDateScene} from '../scenes/tasks/tasks-create/task-create-set-date.scene';
 import {MainScene} from '../../scenes/scenes/main/main.scene';
 import {TasksGetTasksListScene} from '../scenes/tasks/tasks-get/tasks-get-tasks-list.scene';
-import {TasksGetMainScene} from '../scenes/tasks/tasks-get/tasks-get-main';
+import {TasksGetMainScene} from '../scenes/tasks/tasks-get/tasks-get-main.scene';
 import {AliasesGetAliasesListScene} from '../scenes/aliases/aliases-get/aliases-get-aliases-list.scene';
 import {AliasCreateSetSceneScene} from '../scenes/aliases/aliases-create/aliases-create-set-scene.scene';
 import {AliasCreateSetAliasScene} from '../scenes/aliases/aliases-create/aliases-create-set-alias.scene';
