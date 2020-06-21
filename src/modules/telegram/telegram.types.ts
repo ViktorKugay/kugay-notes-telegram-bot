@@ -10,6 +10,8 @@ export enum TelegrafScene {
 
   // ====== Tasks ======
   tasks_main = 'tasks_main',
+
+  // ======= Tasks Get
   tasks_get_main = 'tasks_get_main',
   tasks_get_tasks_list = 'tasks_get_tasks_list',
 
@@ -18,6 +20,12 @@ export enum TelegrafScene {
   task_create_set_date = 'task_create_set_date',
   task_create_set_time = 'task_create_set_time',
   task_create_success = 'task_create_success',
+
+  // ===== Tasks Status ======
+  tasks_status_resolve = 'tasks_status_resolve',
+  tasks_status_delay_set_status = 'tasks_status_delay_set_status',
+  tasks_status_delay_set_date = 'tasks_status_delay_set_date',
+  tasks_status_delay_set_time = 'tasks_status_delay_set_time',
 
   // ====== Aliases ======
   aliases_main = 'aliases_main',
@@ -46,6 +54,8 @@ export enum TaskStatus {
 
 export interface SceneWithState extends SceneContext<Scenes> {
   state: {
+    taskId: string;
+    action: 'resolve_task' | 'delay_task';
     prevScene: TelegrafScene;
     taskStatus: TaskStatus | undefined;
   };

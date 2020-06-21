@@ -23,6 +23,9 @@ import {AliasCreateSetSceneScene} from './scenes/aliases/aliases-create/aliases-
 import {AliasesMainScene} from './scenes/aliases/aliases-main/aliases-main-menu.scene';
 import {AliasesGetAliasesListScene} from './scenes/aliases/aliases-get/aliases-get-aliases-list.scene';
 import {SettingsMainScene} from './scenes/settings/settings-main/settings-main.scene';
+import { TaskStatusSetDateScene } from './scenes/tasks/tasks-status/task-status-delay-set-date.scene';
+import { TaskStatusSetTimeScene } from './scenes/tasks/tasks-status/task-status-delay-set-time.scene';
+import { TaskStatusSetStatusScene } from './scenes/tasks/tasks-status/task-status-delay-set-status.scene';
 
 @Module({
   imports: [
@@ -50,6 +53,9 @@ import {SettingsMainScene} from './scenes/settings/settings-main/settings-main.s
     AliasesMainScene,
     AliasesGetAliasesListScene,
     SettingsMainScene,
+    TaskStatusSetDateScene,
+    TaskStatusSetTimeScene,
+    TaskStatusSetStatusScene
   ],
   exports: [
     SceneService,
@@ -68,6 +74,9 @@ import {SettingsMainScene} from './scenes/settings/settings-main/settings-main.s
     AliasesMainScene,
     AliasesGetAliasesListScene,
     SettingsMainScene,
+    TaskStatusSetDateScene,
+    TaskStatusSetTimeScene,
+    TaskStatusSetStatusScene
   ],
 })
 export class ScenesModule {}

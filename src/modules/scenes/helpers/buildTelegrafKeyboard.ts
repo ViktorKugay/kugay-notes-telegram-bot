@@ -8,5 +8,5 @@ export function buildTelegrafKeyboard(markup: string[][] | string[]) {
 }
 
 export function buildTelegrafMessageKeyboard(markup: string[]) {
-  return Extra.HTML().markup((m: any) => m.inlineKeyboard(markup.map(message => m.callbackButton(message, message))));
+  return Markup.inlineKeyboard(markup.map(value => Markup.callbackButton(value, value))).extra();
 }

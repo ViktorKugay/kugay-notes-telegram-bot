@@ -35,8 +35,8 @@ export class QueueService {
     return async ({data}: PgBoss.JobWithDoneCallback<JobOptions, void>) => await jobStartCallback(data);
   }
 
-  public publishNotifyUserJob = async (chatId: number, content: string | undefined, startAfter: Date) => {
-    return await this.publish(QueueJob.nofifyUserTask, {content, chatId}, startAfter);
+  public publishNotifyUserJob = async (chatId: number, taskId: string, content: string | undefined, startAfter: Date) => {
+    return await this.publish(QueueJob.nofifyUserTask, {content, chatId, taskId}, startAfter);
   };
 
   private async awaitPgBossInitialization() {

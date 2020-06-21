@@ -6,6 +6,7 @@ import {Telegraf, Middleware} from 'telegraf';
 import {Injectable} from '@nestjs/common';
 import session from 'telegraf/session';
 import {env} from '../../config';
+import { TasksMiddleware } from './middlewares/tasks.middleware';
 
 const {TELEGRAM_ACCESS_TOKEN} = env;
 
@@ -17,6 +18,7 @@ export class TelegramService {
     private readonly startMiddleware: StartMiddleware,
     private readonly aliasesMiddleware: AliasesMiddleware,
     private readonly authMiddleware: AuthMiddleware,
+    private readonly tasksMiddleware: TasksMiddleware
   ) {
     this.telegraf = new Telegraf(TELEGRAM_ACCESS_TOKEN);
     // сессия должна инициализировать перед всеми остальными middlewares,
@@ -28,6 +30,7 @@ export class TelegramService {
     // === middlewares ===
     this.telegraf.use(this.authMiddleware.use);
     this.telegraf.use(this.aliasesMiddleware.use);
+    this.telegraf.use(this.tasksMiddleware.use);
     // === start ===
     this.telegraf.start(this.startMiddleware.use);
     // === init ===

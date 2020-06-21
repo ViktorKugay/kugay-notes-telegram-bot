@@ -3,7 +3,7 @@ import {Injectable} from '@nestjs/common';
 
 @Injectable()
 export class AliasesMiddleware {
-  public use = (ctx: ProjectTelegrafContext, next: () => Promise<void>): void => {
+  public use = async (ctx: ProjectTelegrafContext, next: () => Promise<void>): Promise<void> => {
     const {aliases} = ctx.session.user;
     if (ctx.message && ctx.message.text) {
       const message = ctx.message.text;

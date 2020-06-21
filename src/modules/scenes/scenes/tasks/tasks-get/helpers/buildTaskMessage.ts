@@ -6,7 +6,7 @@ import {Task} from 'src/modules/tasks/tasks.entity';
 export function buildTaskMessage(task: Task) {
   return [
     '<b>',
-    buildTaskMessageHeader(task.isActiveTask),
+    buildTaskMessageHeader(task.isResolved),
     '</b>',
     buildTaskContent(task.content),
     '<b>',

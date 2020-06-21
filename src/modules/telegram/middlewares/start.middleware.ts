@@ -3,8 +3,9 @@ import {Injectable} from '@nestjs/common';
 
 @Injectable()
 export class StartMiddleware {
-  public use = (ctx: ProjectTelegrafContext, next: () => Promise<void>): void => {
-    ctx.scene.enter(TelegrafScene.main);
+  public use = async (ctx: ProjectTelegrafContext, next: () => Promise<void>): Promise<void> => {
+    await ctx.scene.enter(TelegrafScene.main);
+    
     next();
   };
 }

@@ -24,8 +24,8 @@ export class Task {
   @Column({type: 'time', nullable: true})
   time!: string;
 
-  @Column({default: true})
-  isActiveTask!: boolean;
+  @Column({default: false})
+  isResolved!: boolean;
 
   @ManyToOne(
     () => User,

@@ -1,6 +1,6 @@
 import locales from '../../locales/ru.json';
 import chunk from 'lodash/chunk';
-import {buildTelegrafKeyboard} from '../../helpers/buildTelegrafKeyboard.js';
+import {buildTelegrafKeyboard, buildTelegrafMessageKeyboard} from '../../helpers/buildTelegrafKeyboard.js';
 
 export const taskTypes = buildTelegrafKeyboard([
   [locales.keyboards.tasks.type.resolved, locales.keyboards.tasks.type.unresolved],
@@ -24,7 +24,11 @@ export const setTime = buildTelegrafKeyboard([
   ...buildTimeMarkup(locales.keyboards.time),
 ]);
 
-export default {showOrCreate, setDate, setTime, navigation, taskTypes};
+export const setResolvedOrUnresolved = buildTelegrafMessageKeyboard([
+  locales.keyboards.actions.resolve, locales.keyboards.actions.unresolve
+])
+
+export default {showOrCreate, setDate, setTime, navigation, taskTypes, setResolvedOrUnresolved};
 
 function buildTimeMarkup(times: Record<string, string>) {
   return chunk(Object.keys(times), 3);
