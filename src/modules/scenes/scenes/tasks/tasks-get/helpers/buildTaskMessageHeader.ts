@@ -1,5 +1,5 @@
 import {buildTaskEmoji} from './buildTaskEmoji';
 
-export function buildTaskMessageHeader(isActiveTask: boolean) {
-  return `${buildTaskEmoji(isActiveTask)} Задача:`;
+export function buildTaskMessageHeader(isResolved: boolean) {
+  return `${buildTaskEmoji(isResolved)} Задача:`;
 }

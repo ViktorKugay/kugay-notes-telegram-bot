@@ -37,7 +37,7 @@ export class TasksGetTasksListScene extends SceneBase implements OnModuleInit {
 
   private showUserTasksList = async (ctx: ProjectTelegrafContext, userTasks: Task[]) => {
     for (const task of userTasks) {
-      await ctx.reply(buildTaskMessage(task));
+      await ctx.replyWithHTML(buildTaskMessage(task));
     }
   };
 

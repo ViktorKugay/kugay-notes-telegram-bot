@@ -10,15 +10,13 @@ export class AuthMiddleware {
 
   public use = async (ctx: ProjectTelegrafContext, next: () => Promise<void>): Promise<void> => {
     if (ctx.from) {
-      if (!ctx.session.user) {
-        const {id, first_name, last_name, username} = ctx.from;
-        let user = await this.usersRepo.findOne({where: {id}, relations: ['tasks', 'aliases']});
-        if (!user) {
-          user = await this.usersRepo.save({id, firstName: first_name, lastName: last_name, username});
-        }
-
-        ctx.session.user = prepareUser(user);
+      const {id, first_name, last_name, username} = ctx.from;
+      let user = await this.usersRepo.findOne({where: {id}, relations: ['tasks', 'aliases']});
+      if (!user) {
+        user = await this.usersRepo.save({id, firstName: first_name, lastName: last_name, username});
       }
+
+      ctx.session.user = prepareUser(user);
     }
 
     next();

@@ -22,6 +22,8 @@ export class MainScene extends SceneBase implements OnModuleInit {
   private onEnter = async (ctx: ProjectTelegrafContext) => {
     if (!hasPrevScene(ctx)) {
       await ctx.reply(locales.scenes.main.welcome, keyboard.tasksOrNotes);
+    } else {
+      await ctx.reply(locales.scenes.main.continue, keyboard.tasksOrNotes);
     }
   };
 

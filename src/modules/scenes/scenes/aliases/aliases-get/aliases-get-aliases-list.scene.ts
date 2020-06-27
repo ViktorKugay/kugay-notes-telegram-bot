@@ -1,8 +1,11 @@
 import {TelegrafScene, ProjectTelegrafContext} from '../../../../telegram/telegram.types';
+import errorNames from '../../../../common/error-names';
 import {Alias} from '../../../../aliases/aliases.entity';
 import {SceneBase} from '../../../../scenes/scene.base';
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import locales from '../../../locales/ru.json';
+import {aliasSceneMap} from '../aliases.keyboard';
+import { CustomError } from 'src/utils/error';
 
 @Injectable()
 export class AliasesGetAliasesListScene extends SceneBase implements OnModuleInit {
@@ -36,6 +39,11 @@ export class AliasesGetAliasesListScene extends SceneBase implements OnModuleIni
   };
 
   private buildAliasMessage = (alias: Alias) => {
-    return `🛎 ${alias.alias} -> ${alias.scene}`;
+    const sceneName = Object.entries(aliasSceneMap).find(([_, TelegrafSceneName]) => alias.scene === TelegrafSceneName);
+    if (!sceneName) {
+      throw new CustomError(errorNames.UNRECOGNIZED_TELEGRAF_SCENE);
+    }
+
+    return `🛎 ${alias.alias} -> ${sceneName[0]}`;
   };
 }
