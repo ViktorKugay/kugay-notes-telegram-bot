@@ -1,10 +1,10 @@
 import {TelegrafScene, ProjectTelegrafContext} from '../../../../telegram/telegram.types';
-import {SceneBase} from '../../../../scenes/scene.base';
+import {SceneBase} from '../../../scene.base';
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import locales from '../../../locales/ru.json';
 
 @Injectable()
-export class ErrorHandleScene extends SceneBase implements OnModuleInit {
+export class ErrorHandlerScene extends SceneBase implements OnModuleInit {
   constructor() {
     super(TelegrafScene.error_handling);
   }

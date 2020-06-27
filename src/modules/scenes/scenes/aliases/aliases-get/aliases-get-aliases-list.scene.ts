@@ -6,6 +6,13 @@ import {Injectable, OnModuleInit} from '@nestjs/common';
 import locales from '../../../locales/ru.json';
 import {aliasSceneMap} from '../aliases.keyboard';
 import { CustomError } from 'src/utils/error';
+import { Markup } from 'telegraf';
+
+export const buildDeleteAliasKeyboard = (aliasId: string) => {
+  return Markup.inlineKeyboard([
+    Markup.callbackButton(locales.keyboards.actions.delete, JSON.stringify({aliasId, act: 'a_d'})),
+  ]).extra();
+}
 
 @Injectable()
 export class AliasesGetAliasesListScene extends SceneBase implements OnModuleInit {
@@ -34,7 +41,7 @@ export class AliasesGetAliasesListScene extends SceneBase implements OnModuleIni
 
   private showAliasesList = async (ctx: ProjectTelegrafContext, aliases: Alias[]) => {
     for (const alias of aliases) {
-      await ctx.reply(this.buildAliasMessage(alias));
+      await ctx.reply(this.buildAliasMessage(alias), buildDeleteAliasKeyboard(alias.id));
     }
   };
 

@@ -7,12 +7,14 @@ import locales from '../../locales/ru.json';
 
 // r - resolve
 // u - unrseolve
+// d - delete
 // act - action
 
-const buildSetTaskTypeKeyboard = (taskId: string) => {
+export const buildSetTaskTypeKeyboard = (taskId: string) => {
   return Markup.inlineKeyboard([
     Markup.callbackButton(locales.keyboards.actions.resolve, JSON.stringify({taskId, act: 'r'})),
     Markup.callbackButton(locales.keyboards.actions.unresolve, JSON.stringify({taskId, act: 'u'})),
+    Markup.callbackButton(locales.keyboards.actions.delete, JSON.stringify({taskId, act: 'd'})),
   ]).extra();
 }
 

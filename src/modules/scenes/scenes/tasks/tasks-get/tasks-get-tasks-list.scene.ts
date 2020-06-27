@@ -9,6 +9,7 @@ import errorNames from '../../../../common/error-names';
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import {Task} from '../../../../tasks/tasks.entity';
 import locales from '../../../locales/ru.json';
+import { buildSetTaskTypeKeyboard } from '../tasks.scene';
 
 @Injectable()
 export class TasksGetTasksListScene extends SceneBase implements OnModuleInit {
@@ -37,7 +38,7 @@ export class TasksGetTasksListScene extends SceneBase implements OnModuleInit {
 
   private showUserTasksList = async (ctx: ProjectTelegrafContext, userTasks: Task[]) => {
     for (const task of userTasks) {
-      await ctx.replyWithHTML(buildTaskMessage(task));
+      await ctx.replyWithHTML(buildTaskMessage(task), buildSetTaskTypeKeyboard(task.id));
     }
   };
 

@@ -25,8 +25,10 @@ export const setTime = buildTelegrafKeyboard([
 ]);
 
 export const setResolvedOrUnresolved = buildTelegrafMessageKeyboard([
-  locales.keyboards.actions.resolve, locales.keyboards.actions.unresolve
-])
+  locales.keyboards.actions.resolve,
+  locales.keyboards.actions.unresolve,
+  locales.keyboards.actions.delete,
+]);
 
 export default {showOrCreate, setDate, setTime, navigation, taskTypes, setResolvedOrUnresolved};
 

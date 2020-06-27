@@ -15,6 +15,10 @@ export class AliasesService {
     return await this.aliasesRepo.save({scene, user});
   }
 
+  public async removeAlias(aliasId: string) {
+    await this.aliasesRepo.delete(aliasId);
+  }
+
   public async removeLatestUserAlias(user: User) {
     return await getManager().transaction(async manager => {
       const alias = await manager.findOne(Alias, {where: {user}, order: {createdAt: 'DESC'}});

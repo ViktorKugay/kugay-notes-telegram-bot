@@ -26,7 +26,8 @@ import {SettingsMainScene} from './scenes/settings/settings-main/settings-main.s
 import { TaskStatusSetDateScene } from './scenes/tasks/tasks-status/task-status-delay-set-date.scene';
 import { TaskStatusSetTimeScene } from './scenes/tasks/tasks-status/task-status-delay-set-time.scene';
 import { TaskStatusSetStatusScene } from './scenes/tasks/tasks-status/task-status-delay-set-status.scene';
-import { ErrorHandleScene } from './scenes/error/error-handle/error-handle.scene';
+import { ErrorHandlerScene } from './scenes/error/error-handler/error-handler.scene';
+import { AliasDeleteAliasScene } from './scenes/aliases/aliases-delete/aliases-delete.scene';
 
 @Module({
   imports: [
@@ -57,7 +58,8 @@ import { ErrorHandleScene } from './scenes/error/error-handle/error-handle.scene
     TaskStatusSetDateScene,
     TaskStatusSetTimeScene,
     TaskStatusSetStatusScene,
-    ErrorHandleScene
+    ErrorHandlerScene,
+    AliasDeleteAliasScene
   ],
   exports: [
     SceneService,
@@ -79,7 +81,8 @@ import { ErrorHandleScene } from './scenes/error/error-handle/error-handle.scene
     TaskStatusSetDateScene,
     TaskStatusSetTimeScene,
     TaskStatusSetStatusScene,
-    ErrorHandleScene
+    ErrorHandlerScene,
+    AliasDeleteAliasScene
   ],
 })
 export class ScenesModule {}

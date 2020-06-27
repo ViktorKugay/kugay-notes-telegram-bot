@@ -1,14 +1,10 @@
 import {TelegrafScene, ProjectTelegrafContext} from '../../../../telegram/telegram.types';
-import {Task} from 'src/modules/tasks/tasks.entity';
+import { ActionButtonData } from '../../../../telegram/middlewares/tasks.middleware';
+import {Task} from '../../../../tasks/tasks.entity';
 import {Injectable, OnModuleInit} from '@nestjs/common';
 import locales from '../../../locales/ru.json';
 import {SceneBase} from '../../../scene.base';
 import {getManager} from 'typeorm';
-
-interface ActionButtonData {
-  taskId: string;
-  act: 'r' | 'u';
-}
 
 @Injectable()
 export class TaskStatusSetStatusScene extends SceneBase implements OnModuleInit {
@@ -37,6 +33,16 @@ export class TaskStatusSetStatusScene extends SceneBase implements OnModuleInit 
           case 'resolve_task': {
             await manager.update(Task, task.id, {isResolved: true});
             await ctx.reply(locales.scenes.tasks.tasks_success_resolve);
+            await ctx.scene.enter(TelegrafScene.main, {
+              prevScene: TelegrafScene.tasks_status_delay_set_status
+            });
+
+            break;
+          }
+
+          case 'delete_task': {
+            await manager.delete(Task, task.id);
+            await ctx.reply(locales.scenes.tasks.task_deleted);
             await ctx.scene.enter(TelegrafScene.main, {
               prevScene: TelegrafScene.tasks_status_delay_set_status
             });

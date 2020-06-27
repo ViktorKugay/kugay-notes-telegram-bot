@@ -30,6 +30,6 @@ export class TasksMainScene extends SceneBase implements OnModuleInit {
   };
 
   private toGetTask = async (ctx: ProjectTelegrafContext) => {
-    return await ctx.scene.enter(TelegrafScene.tasks_get_tasks_list);
+    return await ctx.scene.enter(TelegrafScene.tasks_get_main);
   };
 }

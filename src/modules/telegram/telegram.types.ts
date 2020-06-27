@@ -35,6 +35,7 @@ export enum TelegrafScene {
   alias_create_set_scene = 'alias_craete_set_scene',
   alias_create_set_alias = 'alias_create_set_alias',
   aliases_get_aliases_list = 'aliases_get_aliases_list',
+  alias_delete_alias = 'alias_delete_alias',
 
   // ====== Settings ======
   settings_main = 'settings_main',
@@ -57,8 +58,9 @@ export enum TaskStatus {
 
 export interface SceneWithState extends SceneContext<Scenes> {
   state: {
+    aliasId: string;
     taskId: string;
-    action: 'resolve_task' | 'delay_task';
+    action: 'resolve_task' | 'delay_task' | 'delete_task' | 'delete_alias';
     prevScene: TelegrafScene;
     taskStatus: TaskStatus | undefined;
   };
