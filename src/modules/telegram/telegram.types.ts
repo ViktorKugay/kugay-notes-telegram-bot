@@ -5,6 +5,9 @@ import {SceneContext} from 'telegraf/typings/stage';
 export type TelegrafContextWithUser = TelegrafContext;
 
 export enum TelegrafScene {
+ // ==== Error Handling ====
+ error_handling = 'error_handling',
+
   // ===== Main Menu =====
   main = 'main',
 

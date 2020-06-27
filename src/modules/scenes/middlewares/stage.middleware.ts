@@ -20,6 +20,7 @@ import {SettingsMainScene} from '../scenes/settings/settings-main/settings-main.
 import {TaskStatusSetTimeScene} from '../scenes/tasks/tasks-status/task-status-delay-set-time.scene';
 import {TaskStatusSetDateScene} from '../scenes/tasks/tasks-status/task-status-delay-set-date.scene';
 import {TaskStatusSetStatusScene} from '../scenes/tasks/tasks-status/task-status-delay-set-status.scene';
+import {ErrorHandleScene} from '../scenes/error/error-handle/error-handle.scene';
 
 @Injectable()
 export class StageMiddleware {
@@ -41,6 +42,7 @@ export class StageMiddleware {
     private readonly taskStatusSetTimeScene: TaskStatusSetTimeScene,
     private readonly taskStatusSetDateScene: TaskStatusSetDateScene,
     private readonly taskStatusSetStatusScene: TaskStatusSetStatusScene,
+    private readonly errorHandleScene: ErrorHandleScene
   ) {
     this.stage = new Stage([
       this.tasksMainScene.scene,
@@ -59,6 +61,7 @@ export class StageMiddleware {
       this.taskStatusSetTimeScene.scene,
       this.taskStatusSetDateScene.scene,
       this.taskStatusSetStatusScene.scene,
+      this.errorHandleScene.scene
     ]);
   }
 

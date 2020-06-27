@@ -1,4 +1,4 @@
-import {Markup, Extra} from 'telegraf';
+import {Markup} from 'telegraf';
 
 export function buildTelegrafKeyboard(markup: string[][] | string[]) {
   return Markup.keyboard(markup)
