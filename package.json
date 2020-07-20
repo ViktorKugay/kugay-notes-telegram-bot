@@ -38,7 +38,7 @@
     "class-validator": "0.12.2",
     "env-var": "6.1.1",
     "graphile-worker": "^0.6.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "pg": "8.2.1",
     "pg-boss": "4.3.1",
     "reflect-metadata": "0.1.13",
